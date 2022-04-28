@@ -3,22 +3,26 @@ import './App.css';
 import Header from "./components/header";
 import Sidebar from "./components/sidebar";
 import Main from "./components/main";
+import theme from "./theme";
+import {ThemeProvider} from "@mui/material";
 
 
 function App() {
 
     return (
-        <div className="App">
-            <div className="App-header">
+        <ThemeProvider theme={theme}>
+            <div className="App">
+
                 <Header/>
-                <div>
+                <div className={"general-content"}>
                     <Sidebar/>
                     <Main/>
                 </div>
-            </div>
 
-        </div>
-    );
+            </div>
+        </ThemeProvider>
+    )
+        ;
 }
 
 export default App;
