@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from "react-router-dom";
+import {getGroups} from "../services/group-services";
 
 function GroupList() {
 
@@ -10,12 +11,7 @@ function GroupList() {
     useEffect(() => {
 
         const getData = async () => {
-            await fetch('http://127.0.0.1:8000/bwfapi/groups/')
-                .then(resp => resp.json())
-                .then(resp => {
-                    setGroups(resp);
-                })
-                .catch(() => setError(true))
+            await getGroups().then(resp => setGroups(resp)).catch(() => setError(true))
         }
         setLoading(true)
         getData().catch(error => console.log(error));
