@@ -5,6 +5,7 @@ import Sidebar from "./components/sidebar";
 import Main from "./components/main";
 import theme from "./theme";
 import {ThemeProvider} from "@mui/material";
+import {BrowserRouter as Router} from "react-router-dom";
 
 
 function App() {
@@ -12,13 +13,13 @@ function App() {
     return (
         <ThemeProvider theme={theme}>
             <div className="App">
-
-                <Header/>
-                <div className={"general-content"}>
-                    <Sidebar/>
-                    <Main/>
-                </div>
-
+                <Router>
+                    <Header/>
+                    <div className={"general-content"}>
+                        <Sidebar/>
+                        <Main/>
+                    </div>
+                </Router>
             </div>
         </ThemeProvider>
     )
