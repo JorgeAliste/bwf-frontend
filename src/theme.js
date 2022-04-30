@@ -4,7 +4,12 @@ import {amber, lightBlue} from "@mui/material/colors";
 const theme = createTheme({
     palette: {
         primary: amber,
-        secondary: lightBlue
+        secondary: lightBlue,
+    },
+    colors: {
+        bgColor: '#3e3e3e',
+        bgLightColor: '#888',
+        mainAccentColor: '#fecc01'
     }
 })
 
