@@ -6,21 +6,25 @@ import Main from "./components/main";
 import theme from "./theme";
 import {ThemeProvider} from "@mui/material";
 import {BrowserRouter as Router} from "react-router-dom";
+import {AuthProvider} from "./hooks/useAuth";
 
 
 function App() {
+    const user = JSON.parse(localStorage.getItem('bwf-user'))
 
     return (
         <ThemeProvider theme={theme}>
-            <div className="App">
-                <Router>
-                    <Header/>
-                    <div className={"general-content"}>
-                        <Sidebar/>
-                        <Main/>
-                    </div>
-                </Router>
-            </div>
+            <AuthProvider user={user}>
+                <div className="App">
+                    <Router>
+                        <Header/>
+                        <div className={"general-content"}>
+                            <Sidebar/>
+                            <Main/>
+                        </div>
+                    </Router>
+                </div>
+            </AuthProvider>
         </ThemeProvider>
     )
         ;
