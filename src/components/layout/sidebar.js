@@ -49,9 +49,17 @@ function Sidebar() {
                     </form>
                     <p><Link to={'/register'}> Register here!</Link></p>
                 </Fragment> :
-                <div>{authData.user.username} <p><Button variant="contained" color="primary" onClick={() => logout()}>
-                    Logout
-                </Button></p></div>
+                <div>
+                    {authData.user.username}
+                    <br/>
+                    <img src={"http://127.0.0.1:8000" + authData.user.profile.image} alt={"user avatar"}
+                         height={"100"}/>
+                    <p>
+                        <Button variant="contained" color="primary" onClick={() => logout()}>
+                            Logout
+                        </Button>
+                    </p>
+                </div>
             }
         </div>
 
