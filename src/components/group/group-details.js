@@ -1,6 +1,6 @@
 import React, {useState, useEffect, Fragment} from 'react';
 import {Link, useParams} from "react-router-dom";
-import {useFetchGroup} from '../hooks/fetch-group'
+import {useFetchGroup} from '../../hooks/fetch-group'
 import {DateTime} from "luxon";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import QueryBuilderIcon from '@mui/icons-material/QueryBuilder';

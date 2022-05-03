@@ -1,8 +1,8 @@
 import React, {Fragment, useState} from 'react';
 import {Box, Button, TextField} from "@mui/material";
 import {AccountCircle, VpnKey} from "@mui/icons-material";
-import {auth} from '../services/user-services'
-import {useAuth} from "../hooks/useAuth";
+import {auth} from '../../services/user-services'
+import {useAuth} from "../../hooks/useAuth";
 import {Link} from "react-router-dom";
 
 

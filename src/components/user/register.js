@@ -1,15 +1,18 @@
 import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {Box, Button, TextField} from "@mui/material";
 import {AccountCircle, VpnKey, Email} from "@mui/icons-material";
-import {register} from "../services/user-services";
+import {auth, register} from "../../services/user-services";
+import {useAuth} from "../../hooks/useAuth";
 
 function Register() {
 
+    const {setAuth} = useAuth()
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [password_2, setPassword_2] = useState('');
+    const navigate = useNavigate();
 
     const passMatch = () => {
         return password === password_2;
@@ -20,7 +23,9 @@ function Register() {
         if (passMatch()) {
             const regData = await register({username, email, password, profile: {is_premium: false}})
             if (regData) {
-
+                const data = await auth({username, password});
+                setAuth(data);
+                navigate('/account')
             }
         } else {
             console.log("FAIL");
@@ -30,7 +35,7 @@ function Register() {
     return (
         <div>
             < Link to={'/'}>Main Page</Link>
-            <h1>Register form</h1>
+            <h1>Register</h1>
             <form onSubmit={handleRegisterSubmit}>
                 <Box sx={{display: 'flex', alignItems: 'flex-end'}}>
                     <AccountCircle sx={{color: 'action.active', mr: 1, my: 0.5}}/>
