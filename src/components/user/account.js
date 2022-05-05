@@ -1,24 +1,13 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {Button, TextField} from "@mui/material";
-// import {Box, Button, TextField} from "@mui/material";
-// import {AccountCircle, VpnKey, Email} from "@mui/icons-material";
-// import {register} from "../../services/user-services";
 import {uploadAvatar} from "../../services/user-services";
 import {useAuth} from "../../hooks/useAuth";
 
 function Account() {
 
-    // const [username, setUsername] = useState('');
     const [image, setImage] = useState(null);
     const {authData} = useAuth();
-    // const [email, setEmail] = useState('');
-    // const [password, setPassword] = useState('');
-    // const [password_2, setPassword_2] = useState('');
-
-    // const passMatch = () => {
-    //     return password === password_2;
-    // };
 
     const uploadFile = async evt => {
         evt.preventDefault();

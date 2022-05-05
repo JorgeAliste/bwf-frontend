@@ -4,6 +4,7 @@ import {AccountCircle, VpnKey} from "@mui/icons-material";
 import {auth} from '../../services/user-services'
 import {useAuth} from "../../hooks/useAuth";
 import {Link} from "react-router-dom";
+import User from "../user/user";
 
 
 function Sidebar() {
@@ -50,10 +51,7 @@ function Sidebar() {
                     <p><Link to={'/register'}> Register here!</Link></p>
                 </Fragment> :
                 <div>
-                    {authData.user.username}
-                    <br/>
-                    <img src={"http://127.0.0.1:8000" + authData.user.profile.image} alt={"user avatar"}
-                         height={"100"}/>
+                    <User user={authData.user}/>
                     <p>
                         <Button variant="contained" color="primary" onClick={() => logout()}>
                             Logout

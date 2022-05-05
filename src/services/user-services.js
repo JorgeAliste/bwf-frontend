@@ -1,5 +1,5 @@
 export function auth(credentials) {
-    return fetch('http://127.0.0.1:8000/bwfapi/authenticate/', {
+    return fetch(`${process.env.REACT_APP_API_URL}/bwfapi/authenticate/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -10,7 +10,7 @@ export function auth(credentials) {
 }
 
 export function register(userData) {
-    return fetch('http://127.0.0.1:8000/bwfapi/users/', {
+    return fetch(`${process.env.REACT_APP_API_URL}/bwfapi/users/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -21,7 +21,7 @@ export function register(userData) {
 }
 
 export function uploadAvatar(profileId, data) {
-    return fetch(`http://127.0.0.1:8000/bwfapi/profiles/${profileId}/`, {
+    return fetch(`${process.env.REACT_APP_API_URL}/bwfapi/profiles/${profileId}/`, {
         method: 'PUT',
         body: data
     }).then(resp => resp.json())
