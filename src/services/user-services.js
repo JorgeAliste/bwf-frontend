@@ -1,3 +1,5 @@
+import {status} from '../utils'
+
 export function auth(credentials) {
     return fetch(`${process.env.REACT_APP_API_URL}/bwfapi/authenticate/`, {
         method: 'POST',
@@ -5,7 +7,7 @@ export function auth(credentials) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(credentials)
-    }).then(resp => resp.json())
+    }).then(status)
         .catch(e => console.log(e))
 }
 
@@ -16,7 +18,18 @@ export function register(userData) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(userData)
-    }).then(resp => resp.json())
+    }).then(status)
+        .catch(e => console.log(e))
+}
+
+export function changePassword(newPasswordData, userId) {
+    return fetch(`${process.env.REACT_APP_API_URL}/bwfapi/users/${userId}/change_password/`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newPasswordData)
+    }).then(status)
         .catch(e => console.log(e))
 }
 
@@ -24,6 +37,6 @@ export function uploadAvatar(profileId, data) {
     return fetch(`${process.env.REACT_APP_API_URL}/bwfapi/profiles/${profileId}/`, {
         method: 'PUT',
         body: data
-    }).then(resp => resp.json())
+    }).then(status)
         .catch(e => console.log(e))
 }

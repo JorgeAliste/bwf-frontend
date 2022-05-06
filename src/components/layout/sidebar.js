@@ -3,7 +3,7 @@ import {Box, Button, TextField} from "@mui/material";
 import {AccountCircle, VpnKey} from "@mui/icons-material";
 import {auth} from '../../services/user-services'
 import {useAuth} from "../../hooks/useAuth";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import User from "../user/user";
 
 
@@ -12,6 +12,7 @@ function Sidebar() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const {authData, setAuth} = useAuth();
+    const navigate = useNavigate()
 
     const handleLoginSubmit = async evt => {
         evt.preventDefault();
@@ -22,6 +23,9 @@ function Sidebar() {
 
     const logout = () => {
         setAuth(null);
+    }
+    const account = () => {
+        navigate('/account')
     }
 
     return (
@@ -53,10 +57,16 @@ function Sidebar() {
                 <div>
                     <User user={authData.user}/>
                     <p>
+                        <Button variant="contained" color="primary" onClick={() => account()}>
+                            My Account
+                        </Button>
+                    </p>
+                    <p>
                         <Button variant="contained" color="primary" onClick={() => logout()}>
                             Logout
                         </Button>
                     </p>
+
                 </div>
             }
         </div>

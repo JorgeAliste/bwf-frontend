@@ -28,7 +28,7 @@ function Register() {
                 navigate('/account')
             }
         } else {
-            console.log("FAIL");
+            console.log("Password does not match");
         }
     };
 
