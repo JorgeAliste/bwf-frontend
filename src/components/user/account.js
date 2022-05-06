@@ -40,7 +40,7 @@ function Account() {
             const passData = await changePassword({
                 old_password: oldPassword,
                 new_password: newPassword1
-            }, authData.user.id);
+            }, authData.user.id, authData.token);
 
             if (passData) {
                 toast.success("Password changed!");

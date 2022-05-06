@@ -22,11 +22,12 @@ export function register(userData) {
         .catch(e => console.log(e))
 }
 
-export function changePassword(newPasswordData, userId) {
+export function changePassword(newPasswordData, userId, token) {
     return fetch(`${process.env.REACT_APP_API_URL}/bwfapi/users/${userId}/change_password/`, {
         method: 'PUT',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`
         },
         body: JSON.stringify(newPasswordData)
     }).then(status)
