@@ -5,6 +5,10 @@ import {DateTime} from "luxon";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import QueryBuilderIcon from '@mui/icons-material/QueryBuilder';
 import {makeStyles} from "@mui/styles";
+import User from "../user/user";
+import {Button} from "@mui/material";
+import {joinGroup, leaveGroup} from "../../services/group-services";
+import {useAuth} from "../../hooks/useAuth";
 
 
 const useStyles = makeStyles(theme => ({
@@ -13,6 +17,10 @@ const useStyles = makeStyles(theme => ({
         marginRight: '3px',
         marginTop: '10px',
         color: theme.colors.mainAccentColor,
+    },
+    memberContainer: {
+        display: 'grid',
+        gridTemplateColumns: '100px auto'
     }
 }));
 
@@ -23,10 +31,28 @@ function GroupDetails() {
     const {id} = useParams();
     const [data, loading, error] = useFetchGroup(id);
     const [group, setGroup] = useState(null);
+    const [inGroup, setInGroup] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
+    const {authData} = useAuth();
 
     useEffect(() => {
-        setGroup(data)
+        if (data?.members) {
+            if (authData?.user) {
+                setInGroup(!!data.members.find(member => member.user.id === authData.user.id));
+                setIsAdmin(data.members.find(member => member.user.id === authData.user.id)?.admin);
+            }
+        }
+
+        setGroup(data);
     }, [data])
+
+    const joinGroupButton = () => {
+        joinGroup({user: authData.user.id, group: group.id}).then(resp => console.log(resp));
+    }
+
+    const leaveGroupButton = () => {
+        leaveGroup({user: authData.user.id, group: group.id}).then(resp => console.log(resp));
+    }
 
     if (error) return <h1>Error</h1>
     if (loading) return <h1>Loading...</h1>
@@ -40,6 +66,13 @@ function GroupDetails() {
                     <p>Location: {group.location}</p>
                     <p>Description: {group.description}</p>
 
+                    {inGroup ? <Button onClick={() => leaveGroupButton()} variant={"contained"} color={"primary"}>Leave
+                            Group</Button> :
+                        <Button onClick={() => joinGroupButton()} variant={"contained"} color={"primary"}>Join
+                            Group</Button>
+                    }
+
+
                     <h3>Events</h3>
                     {group.events.map(event => {
 
@@ -52,6 +85,15 @@ function GroupDetails() {
                                 <CalendarMonthIcon className={classes.dateTime}/> {evtTime.toSQLDate()}
                                 <QueryBuilderIcon className={classes.dateTime}/>{evtTime.toFormat('HH:mm')}
                             </p>
+                        </div>
+                    })}
+
+                    <h3>Members</h3>
+                    {group.members.map(member => {
+
+                        return <div key={member.id} className={classes.memberContainer}>
+                            <User user={member.user}/>
+                            <p>{member.points} pts.</p>
                         </div>
                     })}
                 </Fragment>
