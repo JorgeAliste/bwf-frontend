@@ -13,7 +13,7 @@ export function getGroup(id) {
 }
 
 export function joinGroup(data) {
-    return fetch(`${process.env.REACT_APP_API_URL}/bwfapi/members/join/`,{
+    return fetch(`${process.env.REACT_APP_API_URL}/bwfapi/members/join/`, {
         method: 'POST',
         headers: {
             'Content-type': 'application/json',
@@ -25,12 +25,25 @@ export function joinGroup(data) {
 }
 
 export function leaveGroup(data) {
-    return fetch(`${process.env.REACT_APP_API_URL}/bwfapi/members/leave/`,{
+    return fetch(`${process.env.REACT_APP_API_URL}/bwfapi/members/leave/`, {
         method: 'POST',
         headers: {
             'Content-type': 'application/json',
         },
         body: JSON.stringify(data),
+    })
+        .then(status)
+        .catch((e) => console.log(e))
+}
+
+export function postComment(token, description, group, user) {
+    return fetch(`${process.env.REACT_APP_API_URL}/bwfapi/comments/`, {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json',
+            'Authorization': `Token ${token}`,
+        },
+        body: JSON.stringify({description, group, user}),
     })
         .then(status)
         .catch((e) => console.log(e))

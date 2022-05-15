@@ -9,6 +9,7 @@ import User from "../user/user";
 import {Button} from "@mui/material";
 import {joinGroup, leaveGroup} from "../../services/group-services";
 import {useAuth} from "../../hooks/useAuth";
+import Comments from "../comments/comments";
 
 
 const useStyles = makeStyles(theme => ({
@@ -96,6 +97,7 @@ function GroupDetails() {
                             <p>{member.points} pts.</p>
                         </div>
                     })}
+                    <Comments group={group}/>
                 </Fragment>
 
             }
