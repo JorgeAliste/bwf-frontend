@@ -8,6 +8,7 @@ import {joinGroup, leaveGroup} from "../../services/group-services";
 import {useAuth} from "../../hooks/useAuth";
 import Comments from "../comments/comments";
 import EventList from "../events/event-list";
+import {useNavigate} from "react-router-dom";
 
 
 const useStyles = makeStyles(theme => ({
@@ -33,6 +34,7 @@ function GroupDetails() {
     const [inGroup, setInGroup] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
     const {authData} = useAuth();
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (data?.members) {
@@ -53,6 +55,10 @@ function GroupDetails() {
         leaveGroup({user: authData.user.id, group: group.id}).then(resp => console.log(resp));
     }
 
+    const addEvent = () => {
+        navigate('/event-form', {state: {group}});
+    }
+
     if (error) return <h1>Error</h1>
     if (loading) return <h1>Loading...</h1>
 
@@ -70,6 +76,8 @@ function GroupDetails() {
                         <Button onClick={() => joinGroupButton()} variant={"contained"} color={"primary"}>Join
                             Group</Button>
                     }
+                    {isAdmin && <Button onClick={() => addEvent()} variant={"contained"} color={"primary"}>Add New
+                        Event</Button>}
 
 
                     <EventList events={group.events}/>

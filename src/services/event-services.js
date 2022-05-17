@@ -12,6 +12,19 @@ export function getEvent(token, id) {
         .catch((e) => console.log(e))
 }
 
+export function createEvent(token, data) {
+    return fetch(`${process.env.REACT_APP_API_URL}/bwfapi/events/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`,
+        },
+        body: JSON.stringify(data)
+    })
+        .then(status)
+        .catch((e) => console.log(e))
+}
+
 export function placeBet(token, item) {
     return fetch(`${process.env.REACT_APP_API_URL}/bwfapi/bets/place_bet/`, {
         method: 'POST',
