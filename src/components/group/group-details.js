@@ -1,15 +1,13 @@
 import React, {useState, useEffect, Fragment} from 'react';
 import {Link, useParams} from "react-router-dom";
 import {useFetchGroup} from '../../hooks/fetch-group'
-import {DateTime} from "luxon";
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import QueryBuilderIcon from '@mui/icons-material/QueryBuilder';
 import {makeStyles} from "@mui/styles";
 import User from "../user/user";
 import {Button} from "@mui/material";
 import {joinGroup, leaveGroup} from "../../services/group-services";
 import {useAuth} from "../../hooks/useAuth";
 import Comments from "../comments/comments";
+import EventList from "../events/event-list";
 
 
 const useStyles = makeStyles(theme => ({
@@ -74,20 +72,7 @@ function GroupDetails() {
                     }
 
 
-                    <h3>Events</h3>
-                    {group.events.map(event => {
-
-                        const format = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-                        const evtTime = DateTime.fromFormat(event.time, format)
-
-                        return <div key={event.id}>
-                            <p>{event.team_1} V/s {event.team_2} </p>
-                            <p>
-                                <CalendarMonthIcon className={classes.dateTime}/> {evtTime.toSQLDate()}
-                                <QueryBuilderIcon className={classes.dateTime}/>{evtTime.toFormat('HH:mm')}
-                            </p>
-                        </div>
-                    })}
+                    <EventList events={group.events}/>
 
                     <h3>Members</h3>
                     {group.members.map(member => {

@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from '../../assets/logo_frame.png'
+import {Link} from "react-router-dom";
 
 
 function Header() {
@@ -7,7 +8,7 @@ function Header() {
     return (
 
         <div className="header">
-            <img src={logo} alt="BWF Logo" height="150"/>
+            <Link to={'/'}><img src={logo} alt="BWF Logo" height="150"/></Link>
         </div>
 
     );
