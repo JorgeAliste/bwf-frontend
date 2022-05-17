@@ -38,3 +38,16 @@ export function placeBet(token, item) {
         .catch((e) => console.log(e))
 }
 
+export function setResults(token, item) {
+    return fetch(`${process.env.REACT_APP_API_URL}/bwfapi/events/${item.event}/set_result/`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`,
+        },
+        body: JSON.stringify(item)
+    })
+        .then(status)
+        .catch((e) => console.log(e))
+}
+

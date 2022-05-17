@@ -1,11 +1,12 @@
 import React, {useState} from "react";
-import {useNavigate, useLocation} from "react-router-dom";
+import {useNavigate, useLocation, Link} from "react-router-dom";
 import {CssTextField} from "../layout/elements";
 import {Button} from "@mui/material";
 import {DateTime as Datetime} from "luxon";
 import {createEvent} from "../../services/event-services";
 import {useAuth} from "../../hooks/useAuth";
 import {toast} from 'react-toastify';
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 export default function EventForm() {
 
@@ -40,6 +41,8 @@ export default function EventForm() {
 
     return (
         <div>
+            < Link to={`/details/${group.id}`}><ArrowBackIosIcon/></Link>
+
             <h1>
                 New Event for {group.name}
             </h1>

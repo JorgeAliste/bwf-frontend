@@ -9,7 +9,7 @@ import {useAuth} from "../../hooks/useAuth";
 import Comments from "../comments/comments";
 import EventList from "../events/event-list";
 import {useNavigate} from "react-router-dom";
-
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 const useStyles = makeStyles(theme => ({
     dateTime: {
@@ -20,7 +20,8 @@ const useStyles = makeStyles(theme => ({
     },
     memberContainer: {
         display: 'grid',
-        gridTemplateColumns: '100px auto'
+        gridTemplateColumns: 'auto 5fr 1fr',
+        alignItems: "center"
     }
 }));
 
@@ -45,7 +46,7 @@ function GroupDetails() {
         }
 
         setGroup(data);
-    }, [data])
+    }, [data, authData])
 
     const joinGroupButton = () => {
         joinGroup({user: authData.user.id, group: group.id}).then(resp => console.log(resp));
@@ -64,7 +65,7 @@ function GroupDetails() {
 
     return (
         <div>
-            < Link to={'/'}>Main Page</Link>
+            < Link to={'/'}><ArrowBackIosIcon/></Link>
             {group &&
                 <Fragment>
                     <h1>{group.name}</h1>
@@ -87,6 +88,7 @@ function GroupDetails() {
 
                         return <div key={member.id} className={classes.memberContainer}>
                             <User user={member.user}/>
+                            <p></p>
                             <p>{member.points} pts.</p>
                         </div>
                     })}
