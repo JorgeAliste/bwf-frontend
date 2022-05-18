@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import {Link} from "react-router-dom";
 import {getGroups} from "../../services/group-services";
+import GroupListItem from "./group-list-item";
 
 function GroupList() {
 
@@ -24,9 +24,7 @@ function GroupList() {
     return (
         <div>
             {groups && groups.map(group => {
-                return <Link key={group.id} to={`/details/${group.id}`}>
-                    <p>{group.name}</p>
-                </Link>
+                return <GroupListItem key={group.id} group={group}/>
             })}
         </div>
     );

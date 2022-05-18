@@ -109,6 +109,7 @@ export default function Event() {
                     < Link to={`/details/${event.group}`} className={classes.back}><ArrowBackIosIcon/></Link>
                     <h3>{event.team_1} <span className={classes.accent}>V/s</span> {event.team_2}</h3>
                     <h4>{timeDiff}</h4>
+                    <h3>Total number of bets: {event.num_bets}</h3>
                     {event.score_1 >= 0 && event.score_2 >= 0 && <h2>Score: {event.score_1} | {event.score_2}</h2>}
 
                     <h2>

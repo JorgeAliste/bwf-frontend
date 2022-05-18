@@ -10,6 +10,7 @@ import Comments from "../comments/comments";
 import EventList from "../events/event-list";
 import {useNavigate} from "react-router-dom";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 
 const useStyles = makeStyles(theme => ({
     dateTime: {
@@ -20,9 +21,18 @@ const useStyles = makeStyles(theme => ({
     },
     memberContainer: {
         display: 'grid',
-        gridTemplateColumns: 'auto 5fr 1fr',
+        gridTemplateColumns: '1fr 1fr 1fr',
         alignItems: "center"
-    }
+    },
+    gold: {
+        color: "gold",
+    },
+    silver: {
+        color: "silver",
+    },
+    bronze: {
+        color: "bronze",
+    },
 }));
 
 function GroupDetails() {
@@ -39,6 +49,26 @@ function GroupDetails() {
 
     useEffect(() => {
         if (data?.members) {
+
+            data.members.sort((a, b) => b.points - a.points);
+
+            const availableTrophies = ['gold', 'silver', 'bronze'];
+            let currentTrophy = 0;
+            data.members.map((m, index) => {
+                if (index === 0) {
+                    m.trophy = availableTrophies[currentTrophy];
+                } else {
+                    if (m.points !== data.members[index - 1].points) {
+                        currentTrophy++;
+                    }
+
+                    if (currentTrophy < availableTrophies.length) {
+                        m.trophy = availableTrophies[currentTrophy];
+                    }
+                }
+
+            })
+
             if (authData?.user) {
                 setInGroup(!!data.members.find(member => member.user.id === authData.user.id));
                 setIsAdmin(data.members.find(member => member.user.id === authData.user.id)?.admin);
@@ -88,7 +118,7 @@ function GroupDetails() {
 
                         return <div key={member.id} className={classes.memberContainer}>
                             <User user={member.user}/>
-                            <p></p>
+                            <p><EmojiEventsIcon className={classes[member.trophy]}/></p>
                             <p>{member.points} pts.</p>
                         </div>
                     })}
